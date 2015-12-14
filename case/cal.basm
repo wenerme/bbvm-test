@@ -1,4 +1,5 @@
-' CAL INT
+; 算术运算测试
+; CAL INT
 ld int r1,0
 cal int add r1, 3
 cal int add r1, 2
