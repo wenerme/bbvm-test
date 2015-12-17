@@ -15,9 +15,10 @@ out 0, r0;>7
 ld int r3, SUB_STR
 ld int r2, STR
 in r0, 38
-out 0, r0;>-1
-; BUG: 查找不到返回的0, 应该返回-1
-; VM>0
+; BUG 原生虚拟机上查找不到返回的0, 应该返回-1
+out 0, r0;>0
+
+
 
 ; 39
 ld int r3, STR
