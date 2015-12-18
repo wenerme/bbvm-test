@@ -22,6 +22,5 @@ out 0, r1
 ;>-1
 
 exit
-data STR_XWW char "小文文",0
 data STR_ABC char "ABC",0
 data STR_CBA char "CBA",0

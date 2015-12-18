@@ -1,12 +1,12 @@
 ld int r2, 240
 ld int r3, 320
-' setlcd(240,320)
+; setlcd(240,320)
 out 16,0
 
 ld int [page], -1
 
-' 颜色为 BGR
-' SETPEN(page,0,1,0xff)
+; 颜色为 BGR
+; SETPEN(page,0,1,0xff)
 ld int [P1], [page]
 ld int [P2], 0
 ld int [P3], 1
@@ -14,18 +14,18 @@ ld int [P4], 255
 ld int r3, P4
 out 64,0
 
-' 反序的参数
+; 反序的参数
 ld int r1, r3
-out 0,[r1]'>255
+out 0,[r1];>255
 CAL int ADD r1,4
-out 0,[r1]'>1
+out 0,[r1];>1
 CAL int ADD r1,4
-out 0,[r1]'>0
+out 0,[r1];>0
 CAL int ADD r1,4
-out 0,[r1]'>-1
+out 0,[r1];>-1
 
 
-' CIRCLE(page,120,160,50)
+; CIRCLE(page,120,160,50)
 ld int [P1], [page]
 ld int [P2], 120
 ld int [P3], 160
@@ -33,7 +33,7 @@ ld int [P4], 50
 ld int r3, P4
 out 69,0
 
-' PIXEL(page,120,160,0xff00)
+; PIXEL(page,120,160,0xff00)
 ld int [P1], [page]
 ld int [P2], 120
 ld int [P3], 160
@@ -41,24 +41,24 @@ ld int [P4], 65280
 ld int r3, P4
 out 24,0
 
-' READPIXEL(page,70,160)
+; READPIXEL(page,70,160)
 ld int [P1], [page]
 ld int [P2], 70
 ld int [P3], 160
 ld int r3, P3
 out 25,0
-out 0, r3'>255
+out 0, r3;>255
 
-' READPIXEL(page,120,160)
+; READPIXEL(page,120,160)
 ld int [P1], [page]
 ld int [P2], 120
 ld int [P3], 160
 ld int r3, P3
 out 25,0
-out 0, r3'>65280
+out 0, r3;>65280
 
 
-' SETPEN(page,0,1,0xff0000)
+; SETPEN(page,0,1,0xff0000)
 ld int [P1], [page]
 ld int [P2], 0
 ld int [P3], 1
@@ -66,7 +66,7 @@ ld int [P4], 16711680
 ld int r3, P4
 out 64,0
 
-' RECTANGLE(PAGE,70,110,170,210)
+; RECTANGLE(PAGE,70,110,170,210)
 ld int [P1], [page]
 ld int [P2], 70
 ld int [P3], 110
@@ -76,25 +76,26 @@ ld int r3, P5
 out 68, 0
 
 
-' READPIXEL(page,70,120)
+; READPIXEL(page,70,120)
 ld int [P1], [page]
 ld int [P2], 70
 ld int [P3], 120
 ld int r3, P3
 out 25,0
-out 0, r3'>16711680
+out 0, r3;>16711680
 
-' CLS
+; CLS
 out 35, 0
 
-' READPIXEL(page,70,120)
+; READPIXEL(page,70,120)
 ld int [P1], [page]
 ld int [P2], 70
 ld int [P3], 120
 ld int r3, P3
 out 25,0
-out 0, r3'>16711680
+out 0, r3;>16711680
 
+out 255, 0
 
 exit
 
