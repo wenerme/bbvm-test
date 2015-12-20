@@ -1,0 +1,43 @@
+;38 | 设定文字字体大小 | 0 | r3:FONT |  FONT(F)
+; FONT_12SONG(0)
+; FONT_12KAI(1)
+; FONT_12HEI(2)
+; FONT_16SONG(3)
+; FONT_16KAI(4)
+; FONT_16HEI(5)
+; FONT_24SONG(6)
+; FONT_24KAI(7)
+; FONT_24HEI(8)
+
+jmp CODE
+data STR char "We are grate",0
+CODE:
+
+ld int r3, 1
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 2
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 3
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 4
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 5
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 6
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 7
+out 38, 0
+out 1, STR;>We are grate
+

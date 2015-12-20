@@ -1,0 +1,44 @@
+;16 | 设定模拟器屏幕 | 0 | r2:宽, r3:高 |  SETLCD(WIDTH,HEIGHT)
+;23 | 填充画布 | 0 | r3:参数地址 |  FILLPAGE(PAGE,X,Y,WID,HGT,COLOR)
+;25 | 读取画布某点颜色 | 0 | r3:参数地址 |  READPIXEL(PAGE,X,Y)
+ld int r2, 120
+ld int r3, 120
+out 16,0
+
+jmp DATA_END
+data P10 int 0
+data P9 int 0
+data P8 int 0
+data P7 int 0
+data P6 int 0
+data P5 int 0
+data P4 int 0
+data P3 int 0
+data P2 int 0
+data P1 int 0
+DATA_END:
+
+ld int [P1], -1
+ld int [P2], 100
+ld int [P3], 100
+ld int [P4], 40
+ld int [P5], 40
+ld int [P6], 123456
+ld int r3, P6
+out 23, 0
+
+ld int r3,P3
+out 25,0
+out 0, r3 ;>123456
+
+ld int [P2], 101
+ld int [P3], 101
+ld int r3,P3
+out 25,0
+out 0, r3 ;>123456
+
+ld int [P2], 99
+ld int [P3], 99
+ld int r3,P3
+out 25,0
+out 0, r3 ;>0
