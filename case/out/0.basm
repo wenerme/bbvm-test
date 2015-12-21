@@ -1,0 +1,15 @@
+; 0 | 显示整数 | 整数 |  | 会换行
+; 1 | 显示字符串 | 字符串 |  | 会换行
+; 2 | 显示字符串 | 字符串 |  |
+; 3 | 显示整数 | 整数 |  |
+; 4 | 显示字符 | 字符ASCII码 |  |
+; 5 | 显示浮点数 | 浮点数 |  |
+jmp CODE
+data STR char "We are grate",0
+CODE:
+out 0,1;>1
+out 1,STR;>We are grate
+out 2,STR;|>We are grate
+out 3,2;|>2
+out 4,97;|>a
+out 5,1069547520;|>1.500000

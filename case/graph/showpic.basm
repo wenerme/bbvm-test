@@ -1,4 +1,4 @@
-; 加载 wener.rlb#1
+; 加载 bmp.rlb#1
 ; 显示到 屏幕
 
 ; 19 | 申请图片句柄并从文件载入像素资源 | r3:资源句柄 | r3:文件名, r2:资源索引 |  LOADRES(FILE$,ID)
@@ -33,8 +33,8 @@ out 16,0
 ld int r3, FN
 ld int r2, 1
 out 19, r1
-out 0, r1; >0
-out 0, r3; >0
+out 0, r1;>0
+out 0, r3;>0
 
 ld int r3, FN
 ld int r2, 1
@@ -42,7 +42,8 @@ out 19, 0
 out 0, r3; >1
 
 ; 在 PC 虚拟机上,如果页面句柄未创建,则会使用 SCREEN
-;  FIXME 在我的实现里面暂不采用这个
+; 在实现中会重现
+; SHOWPIC(PAGE,PIC,DX,DY,W,H,X,Y,MODE)
 ld int [P1],-1
 ld int [P2],r3
 ld int [P3],0
@@ -55,19 +56,17 @@ ld int [P9],0
 
 ld int r3,P9
 out 20, r1
-out 0, r1; >0
-out 0, r3; >9
+out 0, r1;>0
+out 0, r3;>9
 
 ; GETPICWID(1)
 ld int r3, 1
 out 40, r1
-out 0, r1; >0
-out 0, r3; >240
+out 0, r1;>0
+out 0, r3;>240
 
 ; GETPICHGT(1)
 ld int r3, 1
 out 41, r1
-out 0, r1; >0
-out 0, r3; >320
-
-out 255,0
+out 0, r1;>0
+out 0, r3;>320

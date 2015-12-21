@@ -87,6 +87,7 @@ bba()
 {
 	FN=`basename $1 .basm`
 	blink $1 $FN.bin
+	cp $FN.bin $BB_HOME/Sim/BBasic/Test.bin
 }
 
 
@@ -104,7 +105,7 @@ HELP
 #echo $BASH_VERSION
 #bbcr test.bas
 #set -x
-cd in
+#cd in
 #bbar 11.basm
 #bbar 12.basm
 #bbar 13.basm

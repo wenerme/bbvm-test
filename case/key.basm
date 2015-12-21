@@ -1,0 +1,57 @@
+; 10 | 键入整数 | 0 |  | r3的值变为键入的整数
+; 11 | 键入字符串 | 0 | r3:目标字符串句柄 | r3所指字符串的内容变为键入的字符串
+; 12 | 键入浮点数 | 0 |  | r3的值变为键入的浮点数
+;
+; 34 | 判定某键是否按下 | 0;r3 | r3:KEY |  KEYPRESS(KEY)
+; 39 | 等待按键 | r3:按键 | - |  WAITKEY()
+; 45 | 获取按键的字符串 | 0 | r3:字符串句柄,用于存储结果 |  InKey$
+; 46 | 获取按键的ASCII码 | 0 | r3:KEYPRESS |  INKEY()
+
+; out 10, 0 ;<1234
+; out 0, r3 ;>1234
+;
+; in r3, 2
+; out 11, 0 ;<wener
+; out 1, r3 ;>wener
+;
+; out 12, 0 ;<4.123
+; out 5, r3 ;>4.123000
+; out 4, 10
+
+ld int r1, 0
+out 39,r1 ;<9
+out 0, r1 ;>0
+out 0, r3 ;>57
+
+
+in r0, 2
+
+LAB:
+;ld int r3, 200
+;out 27, 0
+
+;36 | 按行列定位光标 | 0 | r2:行,r3:列 |  LOCATE(LINE,ROW)
+ld int r2, 3
+ld int r3, 1
+out 36, 0
+
+ld int r3, 57
+out 34,0
+out 0, r3 ;>1
+
+; 虚拟机上测试不通过,总是有问题
+ld int r3, r0
+out 45,0
+out 0, r3 ;>-1
+;out 1, r3 ;>1
+out 0, r0
+
+ld int r3, 56
+out 34,0
+out 0, r3 ;>1
+
+out 46,r1
+out 0, r3 ;>0
+out 0, r1 ;>0
+jmp LAB
+
