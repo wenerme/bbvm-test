@@ -1,0 +1,4 @@
+; DIV: ; Keyword label
+; DWORD:
+; ld int r1, DIV
+; ld int r1, DWORD

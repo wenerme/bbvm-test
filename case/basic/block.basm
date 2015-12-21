@@ -1,0 +1,31 @@
+; Test BLOCK instruction
+
+jmp CODE
+A:
+.BLOCK 10 16 ; Comments here
+B:
+.BLOCK 10 0
+C:
+.BLOCK 0 16
+D:
+.BLOCK 10 300
+E:
+; Wrong value will cast to 0x60
+; .BLOCK 10 -16
+CODE:
+
+out 0, A;>5
+out 0, B;>15
+out 0, C;>25
+out 0, D;>25
+out 0, E;>35
+
+; 0x10101010 = 269488144
+; (300 & 0xff).toString(16)=2c
+; 0x2c2c2c2c
+out 0, [A];>269488144
+out 0, [B];>0
+out 0, [C];>741092396
+out 0, [D];>741092396
+
+
