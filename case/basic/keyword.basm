@@ -1,4 +1,20 @@
-; DIV: ; Keyword label
-; DWORD:
-; ld int r1, DIV
-; ld int r1, DWORD
+DIV: ; Keyword label
+NOP
+DWORD:
+NOP
+A:
+NOP
+b:
+NOP
+CHAR:
+
+Ld int R1, A
+Ld int R1, b
+ld int r1, DWORD
+ld int r1, CHAR
+ld int r1, DIV
+
+cal int add r1, 1
+out 0, r1;>1
+
+DATA LAB CHAR %00%
