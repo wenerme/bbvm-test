@@ -1,0 +1,99 @@
+; Even released, still can get width and height
+; 26 | 释放图片句柄 | 0 | r3:资源句柄 |  FREERES(ID)
+; 19 | 申请图片句柄并从文件载入像素资源 | r3:资源句柄 | r3:文件名, r2:资源索引 |  LOADRES(FILE$,ID)
+; 20 | 复制图片到画布上 | 0 | r3:地址,其他参数在该地址后 |  SHOWPIC(PAGE,PIC,DX,DY,W,H,X,Y,MODE)
+; 40 | 获取图片宽度 | r3 | r3 |  GETPICWID(PIC)
+; 41 | 获取图片高度 | r3 | r3 |  GETPICHGT(PIC)
+
+
+jmp CODE
+data P10 int 0
+data P9 int 0
+data P8 int 0
+data P7 int 0
+data P6 int 0
+data P5 int 0
+data P4 int 0
+data P3 int 0
+data P2 int 0
+data P1 int 0
+
+data FN byte "bmp.rlb",0
+data page int 0
+CODE:
+
+; LOADRES("bmp.rlb",1)
+; 如果 ID 为 0 会返回 -1
+; 资源句柄从 0 开始
+ld int r3, FN
+ld int r2, 1
+out 19, r1
+out 0, r1;>0
+out 0, r3;>0
+
+; BUG If I release this, I will not load the image in next LOADRES in PC VM
+; FREERES(0)
+; out 26, 0
+
+; LOADRES("bmp.rlb",1)
+ld int r3, FN
+ld int r2, 1
+out 19, 0
+out 0, r3;>1
+
+; GETPICWID(PIC)
+ld int r3, 1
+out 40, r3
+out 0, r3;>240
+
+; FREERES(0)
+ld int r3, 0
+out 26, 0
+ld int r3, 1
+out 26, 0
+
+; Even I released the resource, still can get the width
+; GETPICWID(PIC)
+; ld int r3, 1
+; out 40, r3
+; out 0, r3
+
+; Image handler will reuse
+; LOADRES("bmp.rlb",1)
+ld int r3, FN
+ld int r2, 1
+out 19, 0
+out 0, r3;>0
+; LOADRES("bmp.rlb",1)
+ld int r3, FN
+ld int r2, 1
+out 19, 0
+out 0, r3;>1
+
+ld int r3, 1
+out 26, 0
+
+; LOADRES("bmp.rlb",1)
+ld int r3, FN
+out 19, 0 ; r3=1
+ld int r3, FN
+out 19, 0 ; r3=2
+ld int r3, FN
+out 19, 0 ; r3=3
+
+ld int r3, 2
+out 26, 0
+
+ld int r3, FN
+out 19, 0 ; r3=2
+out 0, r3;>2
+
+ld int r3, FN
+out 19, 0 ; r3=4
+out 0, r3;>4
+
+
+; GETPICWID(PIC)
+ld int r3, 0
+out 40, r3
+out 0, r3;>240

@@ -5,7 +5,7 @@
 ; 20 | 复制图片到画布上 | 0 | r3:地址,其他参数在该地址后 |  SHOWPIC(PAGE,PIC,DX,DY,W,H,X,Y,MODE)
 ; 40 | 获取图片宽度 | r3 | r3 |  GETPICWID(PIC)
 ; 41 | 获取图片高度 | r3 | r3 |  GETPICHGT(PIC)
-;
+
 jmp CODE
 data P10 int 0
 data P9 int 0
@@ -41,8 +41,7 @@ ld int r2, 1
 out 19, 0
 out 0, r3; >1
 
-; 在 PC 虚拟机上,如果页面句柄未创建,则会使用 SCREEN
-; 在实现中会重现
+; 在 PC 虚拟机上,如果页面句柄未创建会出现异常
 ; SHOWPIC(PAGE,PIC,DX,DY,W,H,X,Y,MODE)
 ld int [P1],-1
 ld int [P2],r3
