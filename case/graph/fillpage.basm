@@ -1,0 +1,66 @@
+; 23 | 填充画布 | 0 | r3:参数地址 |  FILLPAGE(PAGE,X,Y,WID,HGT,COLOR)
+
+
+; FILLPAGE not works
+; ld int [page], -1
+; call FILLPAGE
+
+
+
+jmp CODE:
+data P8 int 0
+data P7 int 0
+data P6 int 0
+data P5 int 0
+data P4 int 0
+data P3 int 0
+data P2 int 0
+data P1 int 0
+data page int 0
+
+SETPEN:
+; SETPEN(page,0,1,0xff0000)
+ld int [P1], [page]
+ld int [P2], 0
+ld int [P3], 1
+ld int [P4], 16711680
+ld int r3, P4
+out 64,0
+ret
+
+
+RECTANGLE:
+; RECTANGLE(PAGE,70,110,170,210)
+ld int [P1], [page]
+ld int [P2], 70
+ld int [P3], 110
+ld int [P4], 170
+ld int [P5], 210
+ld int r3, P5
+out 68, 0
+ret
+
+; r0 = READPIXEL(page, r1, r2)
+READPIXEL:
+; READPIXEL(page,70,120)
+ld int [P1], [page]
+ld int [P2], r1
+ld int [P3], r2
+ld int r3, P3
+out 25,0
+ld int r0, r3
+ret
+
+; 23 | 填充画布 | 0 | r3:参数地址 |  FILLPAGE(PAGE,X,Y,WID,HGT,COLOR)
+FILLPAGE:
+ld int [P1], [page]
+ld int [P2], 10
+ld int [P3], 10
+ld int [P4], 200
+ld int [P5], 300
+ld int [P6], 16711680
+ld int r3, P3
+out 23,0
+ret
+
+CODE:

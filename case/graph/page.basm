@@ -1,0 +1,180 @@
+; 18 | 释放画布句柄 | 0 | r3:PAGE句柄 |  DELETEPAGE(PAGE)
+; 21 | 显示画布 | 0 | r3:PAGE句柄 |  FLIPPAGE(PAGE)
+; 22 | 复制画布 | 0 | r2:目标PAGE句柄,r3:源PAGE句柄 |  BITBLTPAGE(DEST,SRC)
+; 43 | 复制部分画布 | - | r3:参数地址 |  STRETCHBLTPAGE(X,Y,DEST,SRC) 
+; 80 | 复制部分画布扩展 | 0 | r3:参数地址 |  STRETCHBLTPAGEEX(X,Y,WID,HGT,CX,CY,DEST,SRC)
+; 17 | 申请画布句柄 | 0 ,r3:PAGE句柄 | - | CREATEPAGE()
+; 16 | 设定模拟器屏幕 | 0 | r2:宽, r3:高 |  SETLCD(WIDTH,HEIGHT)
+
+;SETLCD(240,320)
+ld int r2,240
+ld int r3,320
+out 16, 0
+
+
+out 17,0
+out 0, r3;>0
+out 17,0
+out 0, r3;>1
+out 17,0
+out 0, r3;>2
+
+ld int r3, 1
+out 18, 0
+
+; Page handler will not reuse
+out 17,0
+out 0, r3;>3
+
+
+ld int [page], 3
+call SETPEN
+call RECTANGLE
+
+; FLIPPAGE(3)
+ld int r3, 3
+out 21, 0
+
+; r0 = READPIXEL(page, r1, r2)
+ld int r1, 70
+ld int r2, 110
+call READPIXEL
+out 0, r0;>16711680
+
+out 255,0
+
+; r0 = READPIXEL(page, r1, r2)
+ld int r1, 1
+ld int r2, 1
+call READPIXEL
+out 0, r0;>0
+
+; Clear page
+; BITBLTPAGE([page],0)
+ld int r2, [page]
+ld int r3, 0
+out 22, 0
+
+
+ld int r1, 70
+ld int r2, 110
+call READPIXEL
+out 0, r0;>0
+
+; Copy back
+; BITBLTPAGE([page],0)
+ld int r2, [page]
+ld int r3, -1
+out 22, 0
+
+ld int r1, 70
+ld int r2, 110
+call READPIXEL
+out 0, r0;>16711680
+
+ld int r1, 170
+ld int r2, 210
+call READPIXEL
+out 0, r0;>16711680
+
+; 43 | 复制部分画布 | - | r3:参数地址 |  STRETCHBLTPAGE(X,Y,DEST,SRC) 
+ld int [P1], 120
+ld int [P2], 160
+ld int [P3], [page]
+ld int [P4], 0
+ld int r3, P4
+out 43, 0
+
+ld int r1, 70
+ld int r2, 110
+call READPIXEL
+out 0, r0;>16711680
+
+ld int r1, 170
+ld int r2, 210
+call READPIXEL
+out 0, r0;>0
+
+
+
+; 80 | 复制部分画布扩展 | 0 | r3:参数地址 |  STRETCHBLTPAGEEX(X,Y,WID,HGT,CX,CY,DEST,SRC)
+ld int [P1], 0
+ld int [P2], 0
+ld int [P3], 101
+ld int [P4], 101
+ld int [P5], 70
+ld int [P6], 110
+ld int [P7], -1
+ld int [P8], -1
+ld int r3, P8
+out 80, 0
+
+ld int [page], -1
+
+ld int r1, 0
+ld int r2, 0
+call READPIXEL
+out 0, r0;>16711680
+
+ld int r1, 100
+ld int r2, 100
+call READPIXEL
+out 0, r0;>16711680
+
+jmp CODE
+data P8 int 0
+data P7 int 0
+data P6 int 0
+data P5 int 0
+data P4 int 0
+data P3 int 0
+data P2 int 0
+data P1 int 0
+data page int 0
+
+SETPEN:
+; SETPEN(page,0,1,0xff0000)
+ld int [P1], [page]
+ld int [P2], 0
+ld int [P3], 1
+ld int [P4], 16711680
+ld int r3, P4
+out 64,0
+ret
+
+
+RECTANGLE:
+; RECTANGLE(PAGE,70,110,170,210)
+ld int [P1], [page]
+ld int [P2], 70
+ld int [P3], 110
+ld int [P4], 170
+ld int [P5], 210
+ld int r3, P5
+out 68, 0
+ret
+
+; r0 = READPIXEL(page, r1, r2)
+READPIXEL:
+; READPIXEL(page,70,120)
+ld int [P1], [page]
+ld int [P2], r1
+ld int [P3], r2
+ld int r3, P3
+out 25,0
+ld int r0, r3
+ret
+
+; 23 | 填充画布 | 0 | r3:参数地址 |  FILLPAGE(PAGE,X,Y,WID,HGT,COLOR)
+FILLPAGE:
+ld int [P1], [page]
+ld int [P2], 10
+ld int [P3], 10
+ld int [P4], 200
+ld int [P5], 300
+ld int [P6], 16711680
+ld int r3, P3
+out 23,0
+ret
+
+CODE:
