@@ -7,7 +7,7 @@
 
 
 
-jmp CODE:
+jmp CODE
 data P8 int 0
 data P7 int 0
 data P6 int 0

@@ -1,0 +1,90 @@
+; 36 | 按行列定位光标 | 0 | r2:行,r3:列 |  LOCATE(LINE,ROW)
+; 37 | 设定文字颜色 | 0 | r3:参数地址 |  COLOR(FRONT,BACK,FRAME)
+; 38 | 设定文字字体大小 | 0 | r3:FONT |  FONT(F)
+; 42 | 按坐标定位光标 | - | r2:行,r3:列 |  PIXLOCATE(LINE,ROW)
+
+; Due to the font is different, we don't really test it.
+out 1, STR;>MMMMMMMMMM
+
+; If page = 0 and not exists will use screen
+ld int [page], -1
+ld int r1, 1
+ld int r2, 2
+call READPIXEL
+; FIXME 16777215
+out 0, r0;  >skip
+
+ld int [P1], 16711680
+ld int [P2], 0
+ld int [P3], 1
+ld int r3, P3
+out 37, 0
+
+; 从 1 开始, 如果设置为 0 则不会生效
+; locate(1,0)
+ld int r2, 1
+ld int r3, 0
+out 36, 0
+
+ld int r1, 1
+ld int r2, 2
+call READPIXEL
+;FIXME 16777215
+out 0, r0;>skip
+
+; locate(1,1)
+ld int r2, 1
+ld int r3, 1
+out 36, 0
+
+out 1, STR;>MMMMMMMMMM
+
+ld int r1, 1
+ld int r2, 2
+call READPIXEL
+; FIXME 16711680
+out 0, r0;>skip
+
+; Clear
+out 35, 0
+
+; Test pixlocate
+ld int r2, 10
+ld int r3, 10
+out 42, 0
+
+out 1, STR;>MMMMMMMMMM
+
+ld int r1, 11
+ld int r2, 12
+call READPIXEL
+; FIXME 16711680
+out 0, r0;>skip
+
+
+out 255, 0
+
+jmp CODE
+data P8 int 0
+data P7 int 0
+data P6 int 0
+data P5 int 0
+data P4 int 0
+data P3 int 0
+data P2 int 0
+data P1 int 0
+data page int 0
+
+; r0 = READPIXEL(page, r1, r2)
+READPIXEL:
+; READPIXEL(page,70,120)
+ld int [P1], [page]
+ld int [P2], r1
+ld int [P3], r2
+ld int r3, P3
+out 25,0
+ld int r0, r3
+ret
+
+data STR char "MMMMMMMMMM",0
+CODE:
