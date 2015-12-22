@@ -1,0 +1,9 @@
+jmp CODE
+data STR char "你好",0; 中文
+CODE:
+
+out 1, STR;>你好
+out 0, STR;>5
+out 0, CODE;>13
+out 255, 0; 中文
+

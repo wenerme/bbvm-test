@@ -6,3 +6,6 @@ ignored
 test.bas
 temp.bas
 test.basm
+
+*.lib
+*.rlb

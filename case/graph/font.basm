@@ -41,3 +41,4 @@ ld int r3, 7
 out 38, 0
 out 1, STR;>We are grate
 
+out 255,0
