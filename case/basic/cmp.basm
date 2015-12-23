@@ -1,0 +1,56 @@
+
+; Z	 | 1 | 等于
+; B  | 2 | Below,小于
+; BE | 3 | 小于等于
+; A  | 4 | Above,大于
+; AE | 5 | 大于等于
+; NZ | 6 | 不等于
+
+CMP int 2,1
+out 0, rf;>4
+CMP int 1,2
+out 0, rf;>2
+CMP int 1,1
+out 0, rf;>1
+
+
+CMP byte 100,256
+out 0, rf;>4
+CMP byte 100,255
+out 0, rf;>2
+; 159 < 160
+CMP byte 100255,100256
+out 0, rf;>2
+
+CMP int 2,1
+jpc Z 0
+jpc B 0
+jpc BE 0
+jpc A N1
+out 0, 0
+N1:
+
+CMP int 1,2
+jpc Z 0
+jpc A 0
+jpc AE 0
+jpc B N2
+out 0, 0
+N2:
+
+CMP int 1,1
+jpc B 0
+jpc A 0
+jpc NZ 0
+jpc Z N3
+out 0, 0
+N3:
+
+jpc BE N4
+out 0, 0
+N4:
+jpc AE N5
+out 0, 0
+N5:
+
+out 0, 1;>1

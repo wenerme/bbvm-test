@@ -32,7 +32,6 @@ cal float add r1, [f2]
 out 5,r1;>5.000000
 out 4, 10
 
-; TODO 0.000000 or 000.000000
 cal float sub r1, [f5]
 out 5,r1;>0.000000
 out 4, 10

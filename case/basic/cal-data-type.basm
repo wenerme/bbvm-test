@@ -1,0 +1,90 @@
+
+ld int r1,0
+cal int add r1, 3
+cal int add r1, 2
+out 0,r1;>5
+
+cal byte add r1, 255
+out 0, r1;>4
+
+cal byte add  r1, 1
+out 0,r1;>5
+
+cal byte add  r1, 256
+out 0,r1;>5
+
+cal word add  r1, 256
+out 0,r1;>261
+
+cal word add  r1, 65536
+out 0,r1;>261
+
+cal word sub  r1, 65536
+out 0,r1;>261
+
+; Unsigned short and byte
+; TODO is this the same on the 9688 ?
+ld int r1, 0
+cal word sub r1, 1
+out 0,r1;>65535
+
+ld int r1, 0
+cal byte sub r1, 1
+out 0,r1;>255
+
+;0xffffffff
+; out -1, parse will failed
+;ld int r1, 4294967295
+;out 0,r1;
+
+ld int r1, 2147483647
+out 0,r1;>2147483647
+cal dword add r1, r1
+out 0, r1;>-2
+
+ld int r1, 2147483647
+cal int add r1, 2
+out 0, r1;>-2147483647
+
+; PC VM only use the type to limit the factor value.
+; BUG here 2147418112   7fff0000
+;ld int r1, 2147483647
+;cal word add r1, 1
+;out 0, r1;
+
+; BUG here 65538, high byte is ignored
+; ld int r1, 65537
+; cal word add r1, 1
+; out 0, r1;
+
+; BUG here 258, high byte is ignored
+; ld int r1, 257
+; cal byte add r1, 1
+; out 0, r1;
+
+ld int r1, 0
+cal byte add r1, 258
+out 0, r1;>2
+
+ld float r1, 0
+ld int r2, ONE
+cal float sub r1, [r2]
+out 5, r1;>-1.000000
+out 4, 10
+out 5, [r2];>1.000000
+out 4, 10
+
+ld int r2,[MAX]
+; Very long in normal output
+; out 5, r2
+; out 4, 10
+
+; No overflow here in PC VM
+; cal float add r2, [ONE]
+; out 5, r2
+; out 4, 10
+
+jmp CODE
+data ONE int 1065353216
+data MAX int 2139095039
+CODE:
