@@ -26,27 +26,33 @@ ld int r1, 1
 ld int r0, 1
 out 48,0
 
+;write(10086,0)
 ld int r2, 0
 ld int r3, 10086
 out 51,16
 
+; 10086 == read(0)
 ld int r3, 0
 out 50,16
 out 0, r3;>10086
 
+; write(4.123,4)
 ld int r2, 4
 ld int r3, [flo]
 out 51,17
 
-out 50,16
+; 4.123 == write(4)
+out 50,17
 out 0, r3;>1082388382
 out 5, r3;>4.123000
 out 4, 10
 
+; write("data.dat", 8)
 ld int r2, 8
 ld int r3, fn
 out 51,18
 
+; "data.dat" == read(8)
 in [hdl], 2
 out 0,[hdl];>-1
 ld int r3, [hdl]
@@ -87,3 +93,6 @@ out 0,r3;>0
 ld int r3, 1
 out 54,0
 out 0,r3;>16
+
+; close(#1)
+out 49, 1

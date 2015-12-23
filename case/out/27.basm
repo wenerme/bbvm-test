@@ -1,0 +1,15 @@
+; 27 | 延迟一段时间 | 0 | r3:延迟时间 |  MSDELAY(MSEC)
+
+in r0, 15
+ld int r1, 0
+ld int r3, 100
+out 27, 0
+in r0, 15
+cal int sub r0, r1
+; At least past 100ms
+cmp int r0, 100
+jpc AE OK
+out 0, 0
+OK:
+out 0, 1;>1
+

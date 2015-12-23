@@ -1,0 +1,26 @@
+; 32 | 用种子初始化随机数生成器 | 0 | r3:SEED |  RANDOMIZE(SEED) 
+; 33 | 获取范围内随机数 | 0 | r3:RANGE |  RND(RANGE)
+
+ld int r3, 0
+ld int r3, 0
+out 32, 0
+
+ld int r3, 100
+out 33, 0
+out 0, r3;>skip
+ld int r1, r3
+
+ld int r3, 0
+ld int r3, 0
+out 32, 0
+
+ld int r3, 100
+out 33, 0
+out 0, r3;>skip
+
+cmp int r3, r1
+JMP OK
+out 0,0
+OK:
+out 0,1;>1
+
