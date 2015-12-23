@@ -1,0 +1,58 @@
+; 44 | 设定背景模式 | r3:MODE | - |  SETBKMODE(mode)
+; 透明显示，即字体的背景颜色无效。
+; TRANSPARENT(1)
+; 不透明显示，即字体的背景颜色有效
+; OPAQUE(2)
+; 37 | 设定文字颜色 | 0 | r3:参数地址 |  COLOR(FRONT,BACK,FRAME)
+
+JMP CODE
+data P3 int 0
+data P2 int 0
+data P1 int 0
+data page int 0
+; READPIXEL(page, r1, r2)
+READPIXEL:
+ld int [P1], [page]
+ld int [P2], r1
+ld int [P3], r2
+ld int r3, P3
+out 25,0
+out 0, r3
+ret
+CODE:
+ld int [page], -1
+
+; Blue 0xF44336 16007990
+; White 0xfffff 16777215
+ld int [P1], 16777215
+ld int [P2], 16007990
+ld int r3, P3
+out 37, 0
+out 0, 100000;>100000
+
+ld int r1, 0
+ld int r2, 0
+call READPIXEL;>16007990
+ld int r1, 0
+ld int r2, 25
+call READPIXEL;>0
+
+ld int r3, 2
+out 44,0
+out 0, 100000;>100000
+
+; 4 * 12 - 1
+ld int r1, 0
+ld int r2, 47
+call READPIXEL;>16007990
+
+ld int r3, 1
+out 44,0
+out 0, 100000;>100000
+
+; 6 * 12 - 1
+ld int r1, 0
+ld int r2, 71
+call READPIXEL;>0
+
+out 255, 0
