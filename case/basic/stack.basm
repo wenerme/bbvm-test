@@ -1,0 +1,65 @@
+out 0, rp;>0
+;out 0, rs
+;out 0, rb
+; Bottom
+ld int [BOTTOM], rs
+; Default stack size
+
+; In PC VM, use call will wast 4 byte stack
+; STACK_SIZE
+ld int [TMP], rs
+cal int sub [TMP], rb
+out 0,[TMP]
+; Default stack size
+;>1000
+
+; STACK
+ld int [TMP], [BOTTOM]
+cal int sub [TMP], rs
+out 0,[TMP]
+;>0
+
+push 0
+ld int [TMP], [BOTTOM]
+cal int sub [TMP], rs
+out 0,[TMP]
+;>4
+
+push 1
+ld int [TMP], [BOTTOM]
+cal int sub [TMP], rs
+out 0,[TMP]
+;>8
+
+pop r1
+out 0,r1;>1
+ld int [TMP], [BOTTOM]
+cal int sub [TMP], rs
+out 0,[TMP]
+;>4
+
+pop r1
+out 0,r1;>0
+ld int [TMP], [BOTTOM]
+cal int sub [TMP], rs
+out 0,[TMP]
+;>0
+
+
+jmp CODE
+data BOTTOM int 0
+data TMP int 0
+
+STACK_SIZE:
+ld int [TMP], rs
+cal int sub [TMP], rb
+out 0,[TMP]
+ret
+
+STACK:
+ld int [TMP], [BOTTOM]
+cal int sub [TMP], rs
+out 0,[TMP]
+ret
+
+CODE:
