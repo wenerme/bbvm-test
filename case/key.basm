@@ -19,7 +19,7 @@
 ; out 4, 10
 
 ld int r1, 0
-out 39,r1 ;<9
+out 39,r1 ;|<9
 out 0, r1 ;>0
 out 0, r3 ;>57
 
@@ -35,6 +35,7 @@ ld int r2, 3
 ld int r3, 1
 out 36, 0
 
+; KEYPRESS('9')
 ld int r3, 57
 out 34,0
 out 0, r3 ;>1

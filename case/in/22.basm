@@ -1,0 +1,23 @@
+; 22 | 重定位数据指针 | r3的值 | r2:数据位置 | r3中为任意值
+; 23 | 读内存数据 | 地址内容 | r3:地址 |
+; 24 | 写内存数据 | r3的值 | r2:待写入数据<br>r3:待写入地址 |
+jmp CODES
+data INT_D int 1
+CODES:
+
+out 0, INT_D;>5
+
+ld int r3, INT_D
+in r0, 23
+out 0, r0;>1
+
+ld int r2, 2
+in r0, 24
+out 0, r0;>5
+
+in r0, 23
+out 0, r0;>2
+
+; RESET( INT_D )
+ld int r3, INT_D
+in r1, 22

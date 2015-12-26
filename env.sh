@@ -68,6 +68,7 @@ bbc()
 	cat stderr
 	FN=`basename $1 .bas`
 	blink $FN.obj $FN.bin
+	cp $FN.bin $BB_HOME/Sim/BBasic/Test.bin
 }
 bbcr()
 {
