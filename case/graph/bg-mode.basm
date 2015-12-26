@@ -30,8 +30,8 @@ ld int r3, P3
 out 37, 0
 out 0, 100000;>100000
 
-ld int r1, 0
-ld int r2, 0
+ld int r1, 1
+ld int r2, 1
 call READPIXEL;>16007990
 ld int r1, 0
 ld int r2, 25

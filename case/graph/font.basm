@@ -13,6 +13,10 @@ jmp CODE
 data STR char "We are grate",0
 CODE:
 
+ld int r3, 0
+out 38, 0
+out 1, STR;>We are grate
+
 ld int r3, 1
 out 38, 0
 out 1, STR;>We are grate
@@ -38,6 +42,34 @@ out 38, 0
 out 1, STR;>We are grate
 
 ld int r3, 7
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 6
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 5
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 4
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 3
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 2
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 1
+out 38, 0
+out 1, STR;>We are grate
+
+ld int r3, 0
 out 38, 0
 out 1, STR;>We are grate
 
