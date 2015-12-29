@@ -9,3 +9,5 @@ test.basm
 
 *.lib
 *.rlb
+
+stderr

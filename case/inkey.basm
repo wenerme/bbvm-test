@@ -1,0 +1,41 @@
+; 45 | 获取按键的字符串 | 0 | r3:字符串句柄,用于存储结果 |  InKey$
+; PC VM INKEY only works for click
+; 46 | 获取按键的ASCII码 | 0 | r3:KEYPRESS |  INKEY()
+; 34 | 判定某键是否按下 | 0;r3 | r3:KEY |  KEYPRESS(KEY)
+jmp CODE
+data str int 0
+CODE:
+
+in [str], 2
+
+LOOP:
+
+ld int r3, 81
+out 34, 0
+cmp int r3, 1
+jpc Z EXIT
+
+out 46, 0
+ld int r0, r3
+
+; I don't know how to use InKey$
+; ld int r3, [str]
+; out 45, 0
+
+cmp int r3, 0
+jpc Z NONE:
+; CLS
+out 35, 0
+;36 | 按行列定位光标 | 0 | r2:行,r3:列 |  LOCATE(LINE,ROW)
+ld int r2, 1
+ld int r3, 1
+out 36, 0
+
+out 0, r0
+NONE:
+
+
+jmp LOOP:
+
+EXIT:
+exit

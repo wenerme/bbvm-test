@@ -1,4 +1,4 @@
-#! /usr/bin.env bash
+#!/usr/bin/env bash
 BB_HOME=$PWD/bb
 BB_TOOL=$BB_HOME/tool
 PATH=$PATH:$BB_HOME/tool
@@ -64,7 +64,7 @@ bbr()
 
 bbc()
 {
-	bbasic $1 | tee stderr |  grep -q Fail && { cat stderr;echo [bbasic] Compile $1 failed;  return 1;}
+	bbasic $1 | tee stderr |  grep -q Fail &&  cat stderr && echo [bbasic] Compile $1 failed && return 1;
 	cat stderr
 	FN=`basename $1 .bas`
 	blink $FN.obj $FN.bin
