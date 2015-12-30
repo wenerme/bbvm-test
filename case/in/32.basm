@@ -30,6 +30,8 @@ out 0, r0;>49
 
 ; 35
 ; 左取字符串 | r3的值 | r1:截取长度<br>r2:源字符串<br>r3:目标字符串 | r3所代表字符串的内容被修改 （此端口似乎不正常）
+; 正常接口
+; 35 | 左取字符串 | r3的值 | r2:截取长度<br>r3:源字符串<br>r3:目标字符串 | r3所代表字符串的内容被修改 （此端口似乎不正常）
 ; BUG: 需要传入有内容的字符串
 in r3, 2
 ld int r2, LONG
@@ -41,16 +43,24 @@ ld int r2, LONG
 in r0, 5
 ld int [STR_HDL], r3; store
 
+; Test expected left$
+ld int r3, [STR_HDL]
+ld int r2, 3
+in r0, 35
+out 1, r3;>098
+; VM> 0987654321
+
+; TODO
 ; BUG: PC 上该demo会出问题,结果为 ABCXYZ, r3句柄值没变
 ; BUG: 在汇编操作35 36端口的时候,长度会变
-ld int r3, [EMPTY_HDL]
-ld int r2, UPPER
-ld int r1, 3
-in r0, 35
-out 1, r0;>WEN
+; ld int r3, [EMPTY_HDL]
+; ld int r2, UPPER
+; ld int r1, 3
+; in r0, 35
+; out 1, r0;Expected>WEN
 ; VM> 0987654321
 ; 因为 r3 句柄值未变
-out 1, r3;>WEN
+; out 1, r3;Expected>WEN
 ; VM> 0987654321
 
 ; 36
@@ -62,7 +72,7 @@ out 1, r0;>ERXYZ
 ; VM> XYZ
 out 1, r3;>ERXYZ
 ; VM> XYZ
-out 0, r3;>-2
+out 0, r3;>-3
 
 ; BUG: PC 上该demo会出问题,需要确保 r3足够的长度,否则会返回r2的值
 ld int r2, UPPER
@@ -75,7 +85,7 @@ in r0, 36
 out 1, r0;>cdefg
 ; 长度减少了 1
 ; VM> defg
-out 0, r3;>-2
+out 0, r3;>-3
 
 exit
 DATA UPPER char "WENERXYZ",0
