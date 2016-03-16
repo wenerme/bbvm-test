@@ -23,7 +23,7 @@ ld int r0, r3
 ; out 45, 0
 
 cmp int r3, 0
-jpc Z NONE:
+jpc Z NONE
 ; CLS
 out 35, 0
 ;36 | 按行列定位光标 | 0 | r2:行,r3:列 |  LOCATE(LINE,ROW)
@@ -35,7 +35,7 @@ out 0, r0
 NONE:
 
 
-jmp LOOP:
+jmp LOOP
 
 EXIT:
 exit

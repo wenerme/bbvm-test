@@ -52,7 +52,7 @@ NOT_POS:
 ; out 46, 0
 ; out 0, r3
 
-jmp LOOP:
+jmp LOOP
 OUT:
 
 exit
